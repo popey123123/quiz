@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVDD25Y2H7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVDD25Y2H7');
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Обери, що подобається</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+          <div class="logo">LOVEPLAY</div>
+        </div>
+    </header>
+    <main class="swipe-wrapper">
+        <div class="swipe-header">
+            <h1>Обери, що тобі до вподоби</h1>
+            <p>Лайкай товари, щоб ми склали твою персональну добірку</p>
+        </div>
+        <!-- Цей ID має співпадати з тим, що шукає swipe.js -->
+        <div id="swipe-container">
+            <div class="loader"></div>
+        </div>
+        <div id="swipe-actions">
+            <button id="undo-btn" class="swipe-action-btn undo" style="display: none;">↩️</button>
+            <button id="skip-btn" class="swipe-action-btn skip">❌</button>
+            <button id="like-btn" class="swipe-action-btn like">❤️</button>
+        </div>
+        <div id="finish-screen" style="display: none;">
+            <button id="restart-btn" class="restart-btn">Пройти тест наново</button>
+            <button id="finish-btn" class="finish-btn">Перейти до результатів</button>
+        </div>
+    </main>
+    <script src="swipe.js"></script>
+</body>
+</html>

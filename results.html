@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVDD25Y2H7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVDD25Y2H7');
+</script>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Твоя персональна добірка від LOVEPLAY. Придбай Секс-іграшки в Україні.</title>
+    <meta name="description"
+		content="Пройди короткий квіз та отримай персональні рекомендації інтимних товарів для себе чи пари. Швидко, зручно і конфіденційно!">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="img/favicon/site.webmanifest">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a href="https://loveplay.in.ua" class="logo" style="text-decoration: none; color: inherit;">LOVEPLAY</a>
+    
+            <nav class="main-nav">
+                <a href="https://loveplay.in.ua/">Shop</a>
+                <a href="https://loveplay.in.ua/pro-nas/">Про нас</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://instagram.com/loveplay.in.ua" class="action-button">Зв'язатися з нами</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="hero-section">
+            <h1>А ось і твоя добірка</h1>
+            <p class="intro-text" id="intro-text">
+                Ми проаналізували твої вподобання та зібрали іграшки, які ідеально співпадають з твоїми запитами.
+                Сподіваємось, тобі сподобається.
+            </p>
+        </section>
+
+        <div id="product-sections-container">
+            <div class="loader"></div>
+        </div>
+
+        <div id="accompanying-products-section" style="display: none;">
+            <div class="category-header">
+                <h2>Вас також може зацікавити</h2>
+                <p>На основі ваших вподобань ми підібрали ще кілька товарів, які можуть вам сподобатись.</p>
+            </div>
+            <div class="product-grid" id="accompanying-products-grid"></div>
+        </div>
+
+        <section class="promo-code-section">
+            <h2>Отримай знижку на свою добірку!</h2>
+            <p>Використай промокод при оформленні замовлення:</p>
+            <div class="promo-code-box">
+                <span id="promo-code-text" class="promo-code">LOVEPLAY2025</span> </div>
+            <p class="copy-message" id="copy-message" style="display: none;">Промокод скопійовано!</p>
+        </section>
+
+       <section class="feedback-section">
+			<h2>Чи сподобалась тобі добірка?</h2>
+			<div class="feedback-buttons">
+				<button class="feedback-btn"><i class="fas fa-thumbs-down"></i></button>
+				<button class="feedback-btn"><i class="fas fa-thumbs-up"></i></button>
+			</div>
+			<div class="restart-quiz-container">
+				<button id="restart-quiz-btn" class="restart-quiz-btn">Пройти тест ще раз</button>
+			</div>
+		</section>
+    </main>
+
+    <script>
+        // Оновлений повний список категорій
+    const categoryIdToName = {
+      "915169": "Секс-іграшки", "915170": "Анальні іграшки", "915171": "Сексуальне здоров'я", "915172": "Збуджуючі засоби",
+      "915173": "Секс білизна і костюми", "915174": "Фетиш і БДСМ-штучки", "915175": "Тестера і торговельне обладнання", "915176": "Пакувальна продукція",
+      "915177": "Батарейки", "915178": "Для неї", "915179": "Для нього", "915180": "Для двох", "915181": "Секс-ляльки",
+      "915182": "Качелі, секс-машини, секс меблі", "915183": "Аксесуари", "915184": "Бусини, ланцюжки", "915185": "Анальні іграшки з вібрацією",
+      "915186": "Анальний душ", "915187": "Масажери простати", "915188": "Анальні пробки без вібрації", "915189": "Пробки з каміннями",
+      "915190": "Пробки з хвостами", "915191": "Анальні пробки з накачкою", "915192": "Лубриканти", "915193": "Презервативи",
+      "915194": "Косметика та препарати", "915195": "Духи з феромонами", "915196": "Менструальні чаші", "915197": "Рідкі вібратори",
+      "915198": "Збуджуючі креми, гелі", "915199": "Краплі і капсули", "915200": "Пролонгатори", "915201": "Попперси",
+      "915202": "Чоловіча білизна", "915203": "Аксесуари (пестиси, рукавички)", "915204": "Боді", "915205": "Бюстьє, корсети",
+      "915206": "Гральні костюми", "915207": "Перуки", "915208": "Комплекти", "915209": "Сексуальні маски", "915210": "Пенюари",
+      "915211": "Сукні", "915212": "Пір'я, пушки", "915213": "Портупеї, гартери", "915214": "Сітки (комбінезони)", "915215": "Трусики",
+      "915216": "Халати", "915217": "Панчішні вироби", "915218": "Купальники", "915219": "Спідниці, шортики, лосини, штани",
+      "915220": "Пояси для чулок", "915221": "Різне", "915222": "Кляпи", "915223": "Маски", "915224": "БДСМ набори",
+      "915225": "Пояси вірності", "915226": "Поручі та окови", "915227": "Нашийники", "915228": "Плеті, стеки, шльопалки",
+      "915229": "Садо-мазо, фетіш, БДСМ", "915230": "Системи фіксації та розпірки", "915231": "Стимулятори для сосків",
+      "915232": "Бондаж (мотузки, стрічки)", "915233": "Катетери уретральні", "915234": "We-Vibe", "915235": "Womanizer",
+      "915236": "Вібратори", "915238": "Віброкулі", "915241": "Вакуумні стимулятори", "915245": "Реалістичні вібратори",
+      "915247": "Фалоімітатори", "915248": "Вагінальні кульки", "915249": "Іграшки зі скла", "915250": "Фістинг",
+      "915251": "Ерекційні кільця", "915252": "Мастурбатори", "915253": "Насадки", "915254": "Екстендер", "915255": "Вібратори для двох",
+      "915256": "Набори секс-іграшок", "915257": "Помпи", "915258": "Страпони", "915259": "Сувеніри та ігри", "915260": "Анальні змазки",
+      "915261": "Збуджуючі змазки", "915262": "Оральні змазки", "915263": "Пролонгуючі змазки", "915264": "Універсальні змазки",
+      "915265": "Оральні презервативи", "915266": "Супертонкі презервативи", "915267": "Різні презервативи", "915268": "Масажні олії",
+      "915269": "Масажні свічки", "915270": "Очисники", "915271": "Догляд за тілом", "915272": "Пробники", "915273": "Жіночі духи",
+      "915274": "Чоловічі духи", "915275": "Креми для двох, гелі", "915276": "Жіночі креми, гелі", "915277": "Чоловічі креми, гелі",
+      "915278": "Жіночі краплі і капсули", "915279": "Чоловічі краплі і капсули", "915280": "Для двох (краплі і капсули)",
+      "915281": "Фалоімітатори гіганти", "915282": "Подвійні фалоімітатори", "915283": "Класичні фалоімітатори", "915284": "Реалістичні фалоімітатори",
+      "915285": "Реалістичні з присоскою", "915286": "Набори кульок", "915287": "Кульки з вібрацією", "915288": "Кільця без вібрації",
+      "915289": "Кільця з вібрацією", "915290": "Набори кілець", "915291": "Мастурбатори без вібрації", "915292": "Мастурбатори з вібрацією",
+      "915293": "Електростимуляція", "915294": "Насадки без вібрації", "915295": "Насадки з вібрацією", "915296": "Набори насадок",
+      "915297": "Помпи жіночі", "915298": "Помпи чоловічі", "915299": "Жіночі страпони", "915300": "Чоловічі страпони",
+      "915301": "Насадки для страпону", "915302": "Трусики для страпону", "915303": "Ігри", "915304": "Мило", "915305": "Смарт вібратори",
+      "915306": "Вібратори-кролики", "915307": "Вібратори подвійної стимуляції", "915308": "Класичні вібратори", "915309": "Кліторальні вібратори",
+      "915310": "Мікрофони", "915311": "Вібратори для точки G", "915340": "Смарт вібратори", "915341": "Віброкулі", "915342": "Вібратори-кролики",
+      "915343": "Вібратори подвійної стимуляції", "915344": "Вакуумні стимулятори", "915345": "Класичні вібратори",
+      "915346": "Кліторальні вібратори", "915347": "Мікрофони", "915348": "Реалістичні вібратори", "915349": "Вібратори для точки G"
+    };
+
+    function getCleanProductName(name) {
+        const half = Math.floor(name.length / 2);
+        if (name.length > 10 && name.substring(0, half).trim() === name.substring(half).trim()) {
+            return name.substring(0, half).trim();
+        }
+        return name;
+    }
+
+    function createProductCard(product) {
+        const card = document.createElement('div');
+        card.className = 'product-card-new';
+        const rating = (Math.random() * (5 - 4.5) + 4.5).toFixed(1);
+        const reviewsCount = Math.floor(Math.random() * 20);
+        const cleanName = getCleanProductName(product.name);
+
+        // ПОПРАВКА: Перевірка, чи product.picture є масивом або рядком
+        let imageUrl = './placeholder.jpg'; // Заглушка за замовчуванням
+        if (product.picture) {
+            if (Array.isArray(product.picture) && product.picture.length > 0 && typeof product.picture[0] === 'string' && product.picture[0].startsWith('http')) {
+                imageUrl = product.picture[0]; // Якщо це масив з дійсним URL
+            } else if (typeof product.picture === 'string' && product.picture.startsWith('http')) {
+                imageUrl = product.picture; // Якщо це просто рядок з дійсним URL
+            }
+        }
+
+        card.innerHTML = `
+            <a href="${product.url}" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="product-image-wrapper">
+                    <img src="${imageUrl}" alt="${cleanName}" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${cleanName}</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i> ${rating} (${reviewsCount})
+                    </div>
+                    <div class="product-price">₴ ${parseFloat(product.price).toFixed(2)}</div>
+                    <ul class="product-features">
+                        <li>Безпечний матеріал</li>
+                        <li>Підходить для чутливої шкіри</li>
+                    </ul>
+                    <div class="product-status">В наявності</div>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                <button class="add-to-cart-btn" onclick="window.open('${product.url}', '_blank')"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+        `;
+        return card;
+    }
+    
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    async function fetchAndRenderSection(categoryIds, sectionTitle, container, displayedProductIds) {
+        try {
+            const res = await fetch('https://quiz.loveplay.in.ua/api/products', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({productsId: categoryIds, sortDirection:'desc'})
+            });
+            if (!res.ok) return;
+
+            const data = await res.json();
+            const allItems = data.flatMap(cat => cat.items || []);
+            const uniqueNewItems = allItems.filter(item => !displayedProductIds.has(item.id));
+            const randomItems = shuffleArray(uniqueNewItems).slice(0, 6);
+
+            if (randomItems.length > 0) {
+                const categorySection = document.createElement('section');
+                categorySection.className = 'product-category-section';
+                
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerHTML = `<h2>${sectionTitle}</h2>`;
+                categorySection.appendChild(header);
+
+                const productGrid = document.createElement('div');
+                productGrid.className = 'product-grid';
+                randomItems.forEach(product => productGrid.appendChild(createProductCard(product)));
+                categorySection.appendChild(productGrid);
+                
+                container.appendChild(categorySection);
+                randomItems.forEach(item => displayedProductIds.add(item.id));
+            }
+        } catch (error) {
+            console.error(`Failed to fetch recommendations for "${sectionTitle}":`, error);
+        }
+    }
+
+    async function init() {
+        const likedProducts = JSON.parse(sessionStorage.getItem('likedProducts') || '[]');
+        const mainContainer = document.getElementById('product-sections-container');
+        const accompanyingContainer = document.getElementById('accompanying-products-section');
+        const accompanyingGrid = document.getElementById('accompanying-products-grid');
+        const introText = document.getElementById('intro-text');
+        
+        mainContainer.innerHTML = ''; // Clear loader
+        const displayedProductIds = new Set(likedProducts.map(p => p.id));
+        
+        if (likedProducts.length > 0) {
+            const productsByCategory = likedProducts.reduce((acc, product) => {
+                const categoryId = product.categoryId;
+                if (!acc[categoryId]) acc[categoryId] = [];
+                acc[categoryId].push(product);
+                return acc;
+            }, {});
+
+            for (const categoryId in productsByCategory) {
+                const products = productsByCategory[categoryId];
+                const categorySection = document.createElement('section');
+                categorySection.className = 'product-category-section';
+                const categoryName = categoryIdToName[categoryId] || 'Рекомендації';
+                
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerHTML = `<h2>Ось товари з категорії "${categoryName}", які вам сподобались</h2>`;
+                categorySection.appendChild(header);
+
+                const productGrid = document.createElement('div');
+                productGrid.className = 'product-grid';
+                products.forEach(product => productGrid.appendChild(createProductCard(product)));
+
+                categorySection.appendChild(productGrid);
+                mainContainer.appendChild(categorySection);
+            }
+        } else {
+             introText.textContent = "Ви не обрали жодного товару, але ми підготували для вас декілька цікавих категорій.";
+        }
+        
+        const gender = sessionStorage.getItem('gender');
+
+        if (gender === 'Жінка') {
+            await fetchAndRenderSection(
+                ["915252", "915236", "915346"], // Мастурбатори, Вібратори, Кліторальні стимулятори
+                "Рекомендації для жінок", 
+                mainContainer, 
+                displayedProductIds
+            );
+        } else if (gender === 'Чоловік') {
+            await fetchAndRenderSection(
+                ["915252", "915251"], // Мастурбатори, Ерекційні кільця
+                "Рекомендації для чоловіків", 
+                mainContainer, 
+                displayedProductIds
+            );
+        }
+
+        await fetchAndRenderSection(
+            ["915193", "915192"], // Презервативи, Лубриканти
+            "Для вашого комфорту та безпеки", 
+            mainContainer, 
+            displayedProductIds
+        );
+        
+        const likedCategoryIds = [...new Set(likedProducts.map(p => p.categoryId))];
+        if (likedCategoryIds.length > 0) {
+          try {
+              const res = await fetch('https://quiz.loveplay.in.ua/api/products', {
+                  method: 'POST',
+                  headers: {'Content-Type':'application/json'},
+                  body: JSON.stringify({productsId: likedCategoryIds, sortDirection:'desc'})
+              });
+              if (!res.ok) return;
+              const data = await res.json();
+              const allItems = data.flatMap(cat => cat.items || []);
+              const accompanyingItems = shuffleArray(allItems.filter(item => !displayedProductIds.has(item.id))).slice(0, 6);
+
+              if (accompanyingItems.length > 0) {
+                  accompanyingGrid.innerHTML = '';
+                  accompanyingItems.forEach(item => accompanyingGrid.appendChild(createProductCard(item)));
+                  accompanyingContainer.style.display = 'block';
+              }
+          } catch (error) {
+              console.error("Failed to fetch accompanying products:", error);
+          }
+        }
+    }
+
+    // Додано обробник події для кнопки перезапуску
+    document.getElementById('restart-quiz-btn').onclick = function() {
+        sessionStorage.removeItem('likedProducts');
+        sessionStorage.removeItem('gender');
+        window.location.href = 'index.html';
+    };
+
+    init();
+    </script>
+</body>
+
+</html>
